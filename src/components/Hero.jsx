@@ -9,7 +9,7 @@ const Hero = ({ countries }) => {
   const [selectedRegion, setSelectedRegion] = useState("All"); //state that show countries based on region that selected
 
   return (
-    <div className="bg-[#FAFAFA] dark:bg-[#384350] relative z-[80] pt-[220px] pb-16">
+    <div className="bg-[#FAFAFA] dark:bg-[#384350] relative z-[80] pt-[150px] pb-[120px]">
       <div className="md:flex md:justify-between md:items-center md:px-16">
         <div className="bg-white dark:bg-[#2B3945] flex items-center gap-6 max-w-[450px] md:w-[850px] mx-auto md:mx-0 shadow-lg py-4 px-8 rounded-md">
           <FontAwesomeIcon icon={faMagnifyingGlass} color="gray" size="xl" />
@@ -50,14 +50,16 @@ const Hero = ({ countries }) => {
             }
             return false; //if region doesn't match or query doesn't match
           })
-          .slice(0, 8)
+          // .slice(0, 8)
+          .sort((a, b) => (a.name.common > b.name.common ? 1 : -1)) //sort by name
           .map((country, name) => (
             <div key={name} className="mt-12 md:mt-0 px-16 md:px-0 md:flex">
               <Link to={`/countries/${country.name.common}`}>
-                <div className="bg-white dark:bg-[#2B3945] dark:text-white rounded-lg font-Nunito shadow-lg md:w-[315px]">
+                <div className="bg-white dark:bg-[#2B3945] dark:text-white rounded-lg font-Nunito shadow-lg md:w-[315px] hover:-translate-y-5 ease-out duration-200">
                   <img
                     src={country.flags.png}
                     className="w-full h-[200px] rounded-t-lg"
+                    alt={country.name.common}
                   />
                   <div className="px-5 py-8 flex flex-col gap-2">
                     <h1 className="font-bold text-lg pb-4">

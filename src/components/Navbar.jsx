@@ -6,13 +6,24 @@ const Navbar = () => {
   const [theme, setTheme] = useState(null);
   const [dark, setDark] = useState(false);
 
+  const setLocalStorageTheme = (theme) => {
+    localStorage.setItem("theme", theme);
+  };
+  
+
   useEffect(() => {
-    setTheme(
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-        ? "dark"
-        : "light"
-    );
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setTheme(storedTheme);
+    } else {
+      setTheme(
+        window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light"
+      );
+    }
   }, []);
+  
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", theme === "dark");
@@ -21,12 +32,14 @@ const Navbar = () => {
   const handleDark = () => {
     setDark(!dark);
     setTheme(theme === "dark" ? "light" : "dark");
+    setLocalStorageTheme(theme === "dark" ? "light" : "dark");
   };
+  
 
   return (
     <div
       className={`fixed top-0 w-full z-[81] bg-white ${
-        dark ? "dark:bg-[#2B3945] dark:text-white" : ""
+        theme === "dark" ? "dark:bg-[#2B3945] dark:text-white" : ""
       }`}
     >
       <nav className="flex justify-between items-center font-Nunito py-8 px-5 md:px-16 shadow-md">

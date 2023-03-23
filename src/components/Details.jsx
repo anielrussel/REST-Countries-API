@@ -26,8 +26,8 @@ const Details = ({ countries }) => {
         <div>
           <img
             src={selectedCountry.flags.png}
-            alt=""
-            className="w-full h-[250px] md:w-[700px] md:h-[450px]"
+            alt={selectedCountry.name.common}
+            className="w-full h-[250px] md:w-[700px] md:h-[450px] shadow-lg"
           />
         </div>
         <div className="md:flex md:flex-col pb-8">
@@ -112,14 +112,20 @@ const Details = ({ countries }) => {
             <div className="pt-12 font-Nunito md:flex md:items-center md:gap-5">
               <p className="font-semibold text-lg">Border Countries:</p>
               <div className="flex gap-2 justify-between pt-5 md:pt-0">
-                {selectedCountry.borders.slice(0, 3).map((border, index) => (
-                  <p
-                    key={index}
-                    className="bg-white dark:bg-[#2B3945] shadow-lg rounded-sm py-1 px-8"
-                  >
-                    {border}
-                  </p>
-                ))}
+                {selectedCountry.borders.slice(0, 3).map((border, index) => {
+                  const borderCountry = countries.find(
+                    (country) => country.cca3 === border
+                  );
+                  return (
+                    <Link
+                      key={index}
+                      to={`/details/${borderCountry.name.common}`}
+                      className="bg-white dark:bg-[#2B3945] shadow-lg rounded-sm py-1 px-8"
+                    >
+                      {borderCountry.name.common}
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           )}
