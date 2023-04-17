@@ -117,13 +117,8 @@ const Details = ({ countries }) => {
                     (country) => country.cca3 === border
                   );
                   return (
-                    <Link
-                      key={index}
-                      to={`/details/${borderCountry.name.common}`}
-                      className="bg-white dark:bg-[#2B3945] shadow-lg rounded-sm py-1 px-8"
-                    >
-                      {borderCountry.name.common}
-                    </Link>
+                      <p className="bg-white dark:bg-[#2B3945] shadow-lg rounded-sm py-1 px-8">
+                      {borderCountry.name.common}</p> 
                   );
                 })}
               </div>
